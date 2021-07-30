@@ -1,15 +1,23 @@
 import { useEffect } from "react";
+import { useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { getQuizAsync } from "./quizSlice";
 import Question from "./question";
+import { loginAsync } from "../../utils/server.requests";
 
 const Quiz = () => {
+    const { id } = useParams();
     const { error, quiz, status } = useAppSelector(state => state.quiz);
+    const  auth = useAppSelector(state => state.auth);
     const dispatch = useAppDispatch();
 
+    const loginInfo = {
+        email: "shubham@gmail.com",
+        password: "Bitcoin"
+    }
+
     useEffect(() => {
-        dispatch(getQuizAsync("60f3b9835ac36a0077afc020"));
-        console.log('status: ', status)
+        dispatch(getQuizAsync(id));
     }, [])
 
     return (
@@ -20,7 +28,7 @@ const Quiz = () => {
             <div>
                 {quiz.quizName}
                 {quiz.questions.map((question) => {
-                    return <Question question={question} />
+                    return <Question key={question._id} question={question} />
                 })}
             </div>
             }

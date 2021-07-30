@@ -1,13 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { useAppDispatch } from "../../app/hooks";
+import { loginAsync, signupAsync } from "../../utils/server.requests";
+import { showSnackbar } from "../snackbar/snackbarSlice";
 
-interface Auth {
-  token: string;
+interface AuthState {
+  token: string | void;
   firstName: string;
   loggedIn: boolean;
 }
 
-const initialState: Auth = {
-  token: JSON.parse(localStorage.getItem("auth_learnfinance")),
+const initialState: AuthState = {
+  token: JSON.parse(localStorage.getItem("auth_learnfinance") as string),
   firstName: "",
   loggedIn: (function () {
     return localStorage.getItem("auth_learnfinance") ? true : false;
@@ -15,15 +18,42 @@ const initialState: Auth = {
 };
 
 export const authSlice = createSlice({
-    name: 'auth',
-    initialState,
-    reducers: {
-        login: (state) => state,
-        logout: (state) => state,
-        user_info: (state) => state
-    }
-})
+  name: "auth",
+  initialState,
+  reducers: {
+    logout: (state) => {
+      state.token = localStorage.removeItem("auth_learnfinance");
+      state.firstName = "";
+      state.loggedIn = false;
+    },
+    user_info: (state, action) => {
+      state.firstName = action.payload.firstName;
+    },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(loginAsync.pending, (state) => {
+      })
+      .addCase(loginAsync.fulfilled, (state, action) => {
+        localStorage.setItem(
+          "auth_learnfinance",
+          JSON.stringify(action.payload.token)
+        )
+        state.token = action.payload.token;
+        state.firstName = action.payload.firstName;
+        state.loggedIn = true;
+        
+      })
+      .addCase(loginAsync.rejected, (state) => {
+      })
+      .addCase(signupAsync.fulfilled, (state, action) => {
+        state.firstName = action.payload.firstName;
+        state.token = action.payload.token;
+        state.loggedIn = true;
+      })
+  },
+});
 
-export const {  } = authSlice.actions;
+export const { logout } = authSlice.actions;
 
 export default authSlice.reducer;

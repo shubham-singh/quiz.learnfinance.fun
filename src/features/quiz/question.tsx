@@ -24,7 +24,7 @@ const Question = ({ question }: { question: QuestionState }) => {
       <div>
         {question.options.map((option) => {
           return (
-            <button onClick={() => calculateScore(option.isCorrect)}>
+            <button key={option._id} onClick={() => calculateScore(option.isCorrect)}>
               {option.value}
             </button>
           );
