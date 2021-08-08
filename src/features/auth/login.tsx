@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { loginAsync } from "../../utils/server.requests";
-import { scrollToTop } from "../../utils/function";
+import { scrollToTop, setupAuthHeaderForServiceCalls } from "../../utils/function";
 
 interface LoginState {
   email: string;
@@ -33,14 +33,14 @@ const Login = () => {
 
   const handleLogin = (e: any) => {
     e.preventDefault();
-    loginAsync(loginInfo);
+    dispatch(loginAsync(loginInfo));
   };
 
   const handleGuestLogin = () => {
-    loginAsync({
+    dispatch(loginAsync({
       email: "shubham@gmail.com",
       password: "Bitcoin",
-    });
+    }));
     setLoginInfo({
       email: "shubham@gmail.com",
       password: "Bitcoin",

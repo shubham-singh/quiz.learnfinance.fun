@@ -1,24 +1,25 @@
-import { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { getQuizAsync } from "./quizSlice";
 import Question from "./question";
-import { loginAsync } from "../../utils/server.requests";
+import { getQuizAsync } from "../../utils/server.requests";
 
 const Quiz = () => {
     const { id } = useParams();
+    const navigate = useNavigate();
     const { error, quiz, status } = useAppSelector(state => state.quiz);
     const  auth = useAppSelector(state => state.auth);
     const dispatch = useAppDispatch();
-
-    const loginInfo = {
-        email: "shubham@gmail.com",
-        password: "Bitcoin"
-    }
+    const [questionNumber, setQuestionNumber] = useState(0);
 
     useEffect(() => {
         dispatch(getQuizAsync(id));
     }, [])
+
+    if (questionNumber === 10) {
+        navigate('/');
+        return <></>;
+    }
 
     return (
         <div>
@@ -27,9 +28,7 @@ const Quiz = () => {
             {status === 'idle' && 
             <div>
                 {quiz.quizName}
-                {quiz.questions.map((question) => {
-                    return <Question key={question._id} question={question} />
-                })}
+                <Question question={quiz.questions[questionNumber]} setQuestionNumber={setQuestionNumber} />
             </div>
             }
         </div>

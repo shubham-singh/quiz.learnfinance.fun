@@ -1,8 +1,8 @@
+import React from "react";
 import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { GET_QUIZ, LOGIN, SIGNUP } from "./api.routes";
+import { GET_LEADERBOARD, GET_QUIZ, LOGIN, SCORE, SIGNUP } from "./api.routes";
 import { showSnackbar } from "../features/snackbar/snackbarSlice";
-import React from "react";
 import { AppDispatch } from "../app/store";
 
 export const getAllQuizAsync = async (
@@ -30,6 +30,35 @@ export const getQuizAsync = createAsyncThunk(
     }
   }
 );
+
+export const getScoreAsync = createAsyncThunk(
+  "score/fetchScore", async (undefined, { rejectWithValue }) => {
+    try {
+      console.dir(axios.defaults);
+      const response = await axios.get(SCORE);
+      console.log("Response: ",response);
+      if (response.data.success) {
+        return response.data;
+      } throw new Error("Cannot get Scores");
+    } catch (error) {
+      console.log("score request rejected");
+      return rejectWithValue(error.response.data);
+    }
+  })
+
+export const getLeaderboardAsync = createAsyncThunk(
+  "leaderboard/fetchLeaderboard",
+  async (undefined, { dispatch, rejectWithValue }) => {
+      try {
+        const response = await axios.get(GET_LEADERBOARD);
+        if (response.data.success) {
+          return response.data;
+        } throw new Error("Cannot get Leaderboards")
+      } catch (error) {
+        return rejectWithValue(error.response.data)
+      }
+    }
+)
 
 export const loginAsync = createAsyncThunk(
   "auth/login",
@@ -66,4 +95,18 @@ export const signupAsync = createAsyncThunk(
       return rejectWithValue(error.response.data);
     }
   }
-);
+  );
+  
+  export const postScoreAsync = createAsyncThunk(
+    "score/post",
+    async (score: {quizID: string, score: number}, {dispatch, rejectWithValue}) => {
+      try {
+        const response = await axios.post(SCORE, score);
+        if (response.data.success) {
+          return response.data;
+        }
+      } catch (error) {
+        dispatch(showSnackbar(error.response.data.error));
+        return rejectWithValue(error.response.data);
+    }
+  })

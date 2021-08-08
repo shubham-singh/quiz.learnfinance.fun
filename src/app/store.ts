@@ -1,12 +1,16 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
-import quizReducer from '../features/quiz/quizSlice';
 import authReducer from '../features/auth/authSlice';
+import quizReducer from '../features/quiz/quizSlice';
+import scoreReducer from '../features/score/scoreSlice';
+import leaderboardReducer from "../features/leaderboard/leaderboardSlice";
 import snackbarReducer from '../features/snackbar/snackbarSlice';
 
 export const store = configureStore({
   reducer: {
     auth: authReducer,
     quiz: quizReducer,
+    score: scoreReducer,
+    leaderboard: leaderboardReducer,
     snackbar: snackbarReducer
   },
 });

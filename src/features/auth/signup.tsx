@@ -34,7 +34,7 @@ const Signup = () => {
 
   const handleSignup = (e: any) => {
     e.preventDefault();
-    signupAsync(signupInfo);
+    dispatch(signupAsync(signupInfo));
   };
 
   useEffect(() => {

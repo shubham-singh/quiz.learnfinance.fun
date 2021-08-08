@@ -1,6 +1,5 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
-import { GET_QUIZ } from "../../utils/api.routes";
+import { createSlice } from "@reduxjs/toolkit";
+import { getQuizAsync } from "../../utils/server.requests";
 
 export interface OptionState {
   _id: string;
@@ -34,14 +33,6 @@ const initialState = {
   score: 0,
 } as QuizState;
 
-export const getQuizAsync = createAsyncThunk(
-  "quiz/fetchQuiz",
-  async (quizID: string) => {
-    const quiz = await axios.get(GET_QUIZ + quizID);
-    return quiz.data;
-  }
-);
-
 export const quizSlice = createSlice({
   name: "quiz",
   initialState,
@@ -57,12 +48,13 @@ export const quizSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(getQuizAsync.pending, (state) => {
-        state.status = "loading";
-      })
+    .addCase(getQuizAsync.pending, (state) => {
+      state.status = "loading";
+    })
       .addCase(getQuizAsync.fulfilled, (state, action) => {
         state.status = "idle";
         state.quiz = action.payload.quiz;
+        state.score = 0;
       })
       .addCase(getQuizAsync.rejected, (state) => {
         state.status = "failed";
