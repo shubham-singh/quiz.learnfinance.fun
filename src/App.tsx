@@ -10,12 +10,13 @@ import Home from './features/home/home';
 import Score from './features/score/score';
 import { useAppSelector } from './app/hooks';
 import { setupAuthHeaderForServiceCalls } from './utils/function';
+import axios from 'axios';
 
 function App() {
   const {loggedIn} = useAppSelector(state => state.auth);
   
   useEffect(() => {
-      setupAuthHeaderForServiceCalls();
+    setupAuthHeaderForServiceCalls();
   }, [loggedIn])
 
   return (

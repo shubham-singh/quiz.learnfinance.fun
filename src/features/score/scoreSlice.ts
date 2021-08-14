@@ -23,10 +23,7 @@ export const scoreSlice = createSlice({
             .addCase(postScoreAsync.fulfilled, (state, action) => {
                 state = action.payload.scores;
             })
-            .addCase(getScoreAsync.fulfilled, (state, action) => {
-                console.log("score request fullfilled: ", action.payload);
-                state = action.payload.scores;
-            })
+            .addCase(getScoreAsync.fulfilled, (state, action) => action.payload.scores.scores)
     }
 })
 

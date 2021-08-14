@@ -34,14 +34,13 @@ export const getQuizAsync = createAsyncThunk(
 export const getScoreAsync = createAsyncThunk(
   "score/fetchScore", async (undefined, { rejectWithValue }) => {
     try {
-      console.dir(axios.defaults);
-      const response = await axios.get(SCORE);
-      console.log("Response: ",response);
+      const response = await axios.get(SCORE, {headers: { "Authorization": JSON.parse(localStorage.getItem("auth_learnfinance") as string) }});
+      // const response = await axios.get(SCORE);
       if (response.data.success) {
         return response.data;
       } throw new Error("Cannot get Scores");
     } catch (error) {
-      console.log("score request rejected");
+      console.dir(error);
       return rejectWithValue(error.response.data);
     }
   })
