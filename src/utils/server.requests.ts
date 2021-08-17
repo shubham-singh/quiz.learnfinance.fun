@@ -49,6 +49,7 @@ export const getLeaderboardAsync = createAsyncThunk(
   "leaderboard/fetchLeaderboard",
   async (undefined, { dispatch, rejectWithValue }) => {
       try {
+        console.log("inside leaderboard");
         const response = await axios.get(GET_LEADERBOARD);
         if (response.data.success) {
           return response.data;

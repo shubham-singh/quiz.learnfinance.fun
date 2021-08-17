@@ -3,13 +3,20 @@ import { getLeaderboardAsync } from "../../utils/server.requests";
 
 export interface TopScores {
     _id: string,
-    firstName: string,
-    score: number
+    score: number,
+    user_id: {
+        firstName: string,
+        email: string,
+        _id: string
+    }
 }
 
 export interface LeaderboardState {
     _id: string,
-    quiz_id: string,
+    quiz_id: {
+        _id: string,
+        quizName: string
+    },
     topScores: TopScores[]
 }
 
@@ -19,7 +26,7 @@ export interface LeaderboardInterface {
 
 const initialState = {
     leaderboard: []
-}
+} as LeaderboardInterface
 
 export const leaderboardSlice = createSlice({
     name: "leaderboard",
@@ -28,6 +35,7 @@ export const leaderboardSlice = createSlice({
     extraReducers: (builder) => {
         builder
             .addCase(getLeaderboardAsync.fulfilled, (state, action) => {
+                console.log(action.payload.leaderboard);
                 state.leaderboard = action.payload.leaderboard;
             });
     }

@@ -8,6 +8,7 @@ import Signup from './features/auth/signup';
 import Quiz from './features/quiz/quiz';
 import Home from './features/home/home';
 import Score from './features/score/score';
+import Leaderboard from './features/leaderboard/leaderboard';
 import { useAppSelector } from './app/hooks';
 import { setupAuthHeaderForServiceCalls } from './utils/function';
 import axios from 'axios';
@@ -26,6 +27,7 @@ function App() {
         <Route path='/' element={<Home />}/>
         <PrivateRoute path="/quiz/:id" element={<Quiz />}/>
         <PrivateRoute path="/score" element={<Score />}/>
+        <Route path='/leaderboard' element={<Leaderboard />}/>
         <Route path='/login' element={<Login />}/>
         <Route path='/signup' element={<Signup />}/>
       </Routes>
