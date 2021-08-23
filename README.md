@@ -1,3 +1,29 @@
+# Quiz | Learn Finance
+
+[quiz.learnfinance.fun](https://quiz.learnfinance.fun) is a quiz app with quizes on topics like technical analysis, options trading etc
+
+# Features
+
+- Common authentication among all learnfinance.fun web applications
+- JSON Web Token Authorization
+- REST API
+- Score management
+- Leaderboard
+- Right option feedback
+- Timer
+- Intuitive UI
+- Responsive to different screen sizes
+
+# Techstack
+
+- TypeScript
+- React
+- Express.js
+- Node.js
+- MongoDB
+
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) template.
 
 ## Available Scripts
