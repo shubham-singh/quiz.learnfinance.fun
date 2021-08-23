@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { loginAsync } from "../../utils/server.requests";
-import { scrollToTop, setupAuthHeaderForServiceCalls } from "../../utils/function";
+import { scrollToTop } from "../../utils/function";
 
 interface LoginState {
   email: string;
@@ -16,7 +16,6 @@ interface State {
 const Login = () => {
   const { loggedIn } = useAppSelector((state) => state.auth);
   const { state } = useLocation() as { state: State };
-  const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [loginInfo, setLoginInfo] = useState<LoginState>({

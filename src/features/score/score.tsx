@@ -1,26 +1,32 @@
-import { useEffect } from "react";
 import { useNavigate } from "react-router";
-import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { getScoreAsync } from "../../utils/server.requests";
+import { useAppSelector } from "../../app/hooks";
 
 const Score = () => {
+  const score = useAppSelector((state) => state.score);
+  const navigate = useNavigate();
 
-    const score = useAppSelector(state => state.score);    
-    const dispatch = useAppDispatch();
-    const navigate = useNavigate();
-
-    useEffect(() => {
-        dispatch(getScoreAsync());
-    }, [])
-
-    return (
-    <div>
-        {score.map(quizScore => <div key={quizScore._id} onClick={() => navigate(`/quiz/${quizScore.quiz_id._id}`)}>
-            <h2>{quizScore.quiz_id.quizName}</h2>
-            <h3>{quizScore.score}</h3>
+  return (
+    <div className="flex-c justify-e">
+    <h1 className="heading xx-large text-color pointer" onClick={() => navigate("/")}>Learn Finance</h1>
+      <h1 className="text-color xx-large">Your Scores</h1>
+      <div className="flex-row-center">
+      {score.map((quizScore) => (
+        <div key={quizScore._id}>
+          <div className="flex-column-center card-badge">
+            <h3>{quizScore.quiz_id.quizName}</h3>
+            <h3 className="m-m">Score: {quizScore.score}</h3>
+            <button
+              onClick={() => navigate(`/quiz/${quizScore.quiz_id._id}`)}
+              className="btn btn-modern"
+            >
+              Play again
+            </button>
+          </div>
         </div>
-        )}
-    </div>);
-}
+      ))}
+      </div>
+    </div>
+  );
+};
 
 export default Score;

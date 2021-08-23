@@ -4,4 +4,5 @@ export const GET_USER = 'https://quiz-learnfinance-fun.herokuapp.com/user/';
 export const GET_QUIZ = 'https://quiz-learnfinance-fun.herokuapp.com/quiz/';
 export const GET_LEADERBOARD = 'https://quiz-learnfinance-fun.herokuapp.com/leaderboard/';
 export const SCORE = 'https://quiz-learnfinance-fun.herokuapp.com/score/';
-// export const SCORE = 'https://quizlearnfinancefun-backend.ishubhamsingh.repl.co/score/';
+// export const CHANGE_SCORE = 'https://quiz-learnfinance-fun.herokuapp.com/score/change/';
+export const CHANGE_SCORE = 'https://quizlearnfinancefun-backend.ishubhamsingh.repl.co/score/change/';

@@ -4,6 +4,7 @@ import quizReducer from '../features/quiz/quizSlice';
 import scoreReducer from '../features/score/scoreSlice';
 import leaderboardReducer from "../features/leaderboard/leaderboardSlice";
 import snackbarReducer from '../features/snackbar/snackbarSlice';
+import loaderReducer from '../features/loader/loaderSlice';
 
 export const store = configureStore({
   reducer: {
@@ -11,7 +12,8 @@ export const store = configureStore({
     quiz: quizReducer,
     score: scoreReducer,
     leaderboard: leaderboardReducer,
-    snackbar: snackbarReducer
+    snackbar: snackbarReducer,
+    loader: loaderReducer
   },
 });
 

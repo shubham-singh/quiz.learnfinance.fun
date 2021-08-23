@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getScoreAsync, postScoreAsync } from "../../utils/server.requests";
+import { changeScoreAsync, getScoreAsync, postScoreAsync } from "../../utils/server.requests";
 
 export interface scoreState {
     _id: string,
@@ -24,6 +24,7 @@ export const scoreSlice = createSlice({
                 state = action.payload.scores;
             })
             .addCase(getScoreAsync.fulfilled, (state, action) => action.payload.scores.scores)
+            .addCase(changeScoreAsync.fulfilled, (state, action) => action.payload.scores.scores);
     }
 })
 

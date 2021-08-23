@@ -7,9 +7,11 @@ const Snackbar = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    const timerID = setTimeout(() => {
-      dispatch(deleteSnackbar());
-    }, 2000)
+      const timerID = setTimeout(() => {
+        if (visible) {
+          dispatch(deleteSnackbar());
+        }
+      }, 2000)
     return function () {
       clearTimeout(timerID);
     }

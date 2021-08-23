@@ -35,12 +35,9 @@ export const leaderboardSlice = createSlice({
     extraReducers: (builder) => {
         builder
             .addCase(getLeaderboardAsync.fulfilled, (state, action) => {
-                console.log(action.payload.leaderboard);
                 state.leaderboard = action.payload.leaderboard;
             });
     }
 });
-
-export const {} = leaderboardSlice.actions;
 
 export default leaderboardSlice.reducer;

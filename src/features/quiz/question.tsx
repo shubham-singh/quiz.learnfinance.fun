@@ -1,18 +1,20 @@
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { computeScore, QuestionState } from "./quizSlice";
 
 const Question = ({
   question,
+  questionNumber,
   setQuestionNumber,
+  setTimer,
 }: {
   question: QuestionState;
+  questionNumber: number;
   setQuestionNumber: React.Dispatch<React.SetStateAction<number>>;
+  setTimer: React.Dispatch<React.SetStateAction<number>>;
 }) => {
-  const {
-    score,
-    quiz: { points, negativePoints },
-  } = useAppSelector((state) => state.quiz);
+  const [showAnswer, setShowAnswer] = useState(false);
+  const { quiz: { points, negativePoints } } = useAppSelector((state) => state.quiz);
 
   const dispatch = useAppDispatch();
 
@@ -26,16 +28,30 @@ const Question = ({
 
   return (
     <div>
-      <h2>{question.question}</h2>
-      <h3>Score: {score}</h3>
-      <div>
+      <h2 className="text-color mb-xl">
+        {questionNumber + 1}. {question.question}
+      </h2>
+      <div className="flex-column-center">
         {question.options.map((option) => {
           return (
             <button
+              disabled={showAnswer}
+              className={
+                showAnswer
+                  ? option.isCorrect
+                    ? "option option-right no-hover"
+                    : "option"
+                  : "option pointer"
+              }
               key={option._id}
-              onClick={() => {
-                setQuestionNumber((state) => state + 1);
+              onClick={(e) => {
                 calculateScore(option.isCorrect);
+                setShowAnswer(true);
+                setTimeout(() => {
+                  setShowAnswer(false);
+                  setQuestionNumber((state) => state + 1);
+                  setTimer((state) => 60);
+                }, 2000);
               }}
             >
               {option.value}

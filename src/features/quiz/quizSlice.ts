@@ -27,7 +27,6 @@ export interface QuizState {
 }
 
 const initialState = {
-  status: "loading",
   error: null,
   quiz: {},
   score: 0,
@@ -48,17 +47,21 @@ export const quizSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-    .addCase(getQuizAsync.pending, (state) => {
-      state.status = "loading";
-    })
       .addCase(getQuizAsync.fulfilled, (state, action) => {
-        state.status = "idle";
         state.quiz = action.payload.quiz;
         state.score = 0;
       })
-      .addCase(getQuizAsync.rejected, (state) => {
-        state.status = "failed";
-      });
+      // .addCase(getQuizAsync.pending, (state) => {
+      //   state.status = "loading";
+      // })
+      // .addCase(getQuizAsync.fulfilled, (state, action) => {
+      //   state.status = "idle";
+      //   state.quiz = action.payload.quiz;
+      //   state.score = 0;
+      // })
+      // .addCase(getQuizAsync.rejected, (state) => {
+      //   state.status = "failed";
+      // });
   },
 });
 

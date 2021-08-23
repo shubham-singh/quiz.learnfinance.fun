@@ -1,7 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { useAppDispatch } from "../../app/hooks";
 import { loginAsync, signupAsync } from "../../utils/server.requests";
-import { showSnackbar } from "../snackbar/snackbarSlice";
 
 interface AuthState {
   token: string | void;

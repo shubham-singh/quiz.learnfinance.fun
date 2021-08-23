@@ -1,9 +1,17 @@
 import React from "react";
 import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { GET_LEADERBOARD, GET_QUIZ, LOGIN, SCORE, SIGNUP } from "./api.routes";
+import {
+  CHANGE_SCORE,
+  GET_LEADERBOARD,
+  GET_QUIZ,
+  LOGIN,
+  SCORE,
+  SIGNUP,
+} from "./api.routes";
 import { showSnackbar } from "../features/snackbar/snackbarSlice";
 import { AppDispatch } from "../app/store";
+import { idle, loading } from "../features/loader/loaderSlice";
 
 export const getAllQuizAsync = async (
   setQuizes: React.Dispatch<any>,
@@ -21,10 +29,14 @@ export const getAllQuizAsync = async (
 
 export const getQuizAsync = createAsyncThunk(
   "quiz/fetchQuiz",
-  async (quizID: string, { rejectWithValue }) => {
+  async (quizID: string, { dispatch, rejectWithValue }) => {
     try {
+      dispatch(loading());
       const quiz = await axios.get(GET_QUIZ + quizID);
-      return quiz.data;
+      if (quiz.data.success) {
+        dispatch(idle());
+        return quiz.data;
+      }
     } catch (error) {
       return rejectWithValue(error.response.data);
     }
@@ -32,33 +44,35 @@ export const getQuizAsync = createAsyncThunk(
 );
 
 export const getScoreAsync = createAsyncThunk(
-  "score/fetchScore", async (undefined, { rejectWithValue }) => {
+  "score/fetchScore",
+  async (undefined, { rejectWithValue }) => {
     try {
-      const response = await axios.get(SCORE, {headers: { "Authorization": JSON.parse(localStorage.getItem("auth_learnfinance") as string) }});
-      // const response = await axios.get(SCORE);
+      const response = await axios.get(SCORE);
       if (response.data.success) {
         return response.data;
-      } throw new Error("Cannot get Scores");
+      }
+      throw new Error("Cannot get Scores");
     } catch (error) {
       console.dir(error);
       return rejectWithValue(error.response.data);
     }
-  })
+  }
+);
 
 export const getLeaderboardAsync = createAsyncThunk(
   "leaderboard/fetchLeaderboard",
   async (undefined, { dispatch, rejectWithValue }) => {
-      try {
-        console.log("inside leaderboard");
-        const response = await axios.get(GET_LEADERBOARD);
-        if (response.data.success) {
-          return response.data;
-        } throw new Error("Cannot get Leaderboards")
-      } catch (error) {
-        return rejectWithValue(error.response.data)
+    try {
+      const response = await axios.get(GET_LEADERBOARD);
+      if (response.data.success) {
+        return response.data;
       }
+      throw new Error("Cannot get Leaderboards");
+    } catch (error) {
+      return rejectWithValue(error.response.data);
     }
-)
+  }
+);
 
 export const loginAsync = createAsyncThunk(
   "auth/login",
@@ -95,18 +109,42 @@ export const signupAsync = createAsyncThunk(
       return rejectWithValue(error.response.data);
     }
   }
-  );
-  
-  export const postScoreAsync = createAsyncThunk(
-    "score/post",
-    async (score: {quizID: string, score: number}, {dispatch, rejectWithValue}) => {
-      try {
-        const response = await axios.post(SCORE, score);
-        if (response.data.success) {
-          return response.data;
-        }
-      } catch (error) {
-        dispatch(showSnackbar(error.response.data.error));
-        return rejectWithValue(error.response.data);
+);
+
+export const postScoreAsync = createAsyncThunk(
+  "score/post",
+  async (
+    { quizID, score }: { quizID: string; score: number },
+    { dispatch, rejectWithValue }
+  ) => {
+    try {
+      console.log("Posting score");
+      const response = await axios.post(SCORE, { quizID, score });
+      if (response.data.success) {
+        return response.data;
+      }
+    } catch (error) {
+      dispatch(showSnackbar(error.response.data.error));
+      return rejectWithValue(error.response.data);
     }
-  })
+  }
+);
+
+export const changeScoreAsync = createAsyncThunk(
+  "score/change",
+  async (
+    { quizID, score }: { quizID: string; score: number },
+    { dispatch, rejectWithValue }
+  ) => {
+    try {
+      console.log("changing score");
+      const response = await axios.post(CHANGE_SCORE, { quizID, score });
+      if (response.data.success) {
+        return response.data;
+      }
+    } catch (error) {
+      dispatch(showSnackbar(error.response.data.error));
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
