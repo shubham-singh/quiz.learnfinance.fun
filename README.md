@@ -17,6 +17,7 @@
 # Techstack
 
 - TypeScript
+- Redux
 - React
 - Express.js
 - Node.js
