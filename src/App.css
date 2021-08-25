@@ -20,7 +20,8 @@
   font-family: sans-serif;
   text-align: center;
   min-height: 100vh;
-  background-color: #3B82F6;
+  /* background-color: #3B82F6; */
+  background-color: black;
   margin: 0;
 }
 
@@ -49,7 +50,7 @@
   border-radius: var(--border-radius-m);
 }
 
-.card:hover {
+.card-badge:hover {
   box-shadow: 0 0 1em var(--glow-color);
   background-color: #D1D5DB;
 }
@@ -88,7 +89,7 @@
 
 .leaderboard {
   min-width: 210px;
-  height: 250px;
+  height: 210px;
   border: 1px solid var(--secondary-color);
   text-align: left;
   border-radius: var(--border-radius-m);

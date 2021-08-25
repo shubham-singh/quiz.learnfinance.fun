@@ -22,7 +22,7 @@ const Leaderboard = () => {
       </h1>
       <h1 className="text-color xx-large">Leaderboards</h1>
 
-      <div className="flex-row-center">
+      <div className="card-container">
         {leaderboard.map((quiz) => {
           return (
             <div className="text-color">
