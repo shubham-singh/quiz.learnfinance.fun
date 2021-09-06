@@ -118,7 +118,6 @@ export const postScoreAsync = createAsyncThunk(
     { dispatch, rejectWithValue }
   ) => {
     try {
-      console.log("Posting score");
       const response = await axios.post(SCORE, { quizID, score });
       if (response.data.success) {
         return response.data;
@@ -137,7 +136,6 @@ export const changeScoreAsync = createAsyncThunk(
     { dispatch, rejectWithValue }
   ) => {
     try {
-      console.log("changing score");
       const response = await axios.post(CHANGE_SCORE, { quizID, score });
       if (response.data.success) {
         return response.data;
