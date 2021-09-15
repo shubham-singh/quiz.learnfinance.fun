@@ -1,0 +1,137 @@
+@import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&display=swap");
+
+.text-color {
+  color: var(--secondary-color);
+}
+
+.spinner div {
+  border-top-color: var(--secondary-color);
+}
+
+.spinner div:nth-child(2) {
+  border-bottom-color: var(--secondary-color);
+}
+
+.xx-large {
+  font-size: 4rem;
+}
+
+.App {
+  font-family: sans-serif;
+  text-align: center;
+  min-height: 100vh;
+  /* background-color: #3B82F6; */
+  background-color: black;
+  margin: 0;
+}
+
+.heading {
+  font-family: "Dancing Script", cursive;
+  margin-bottom: 3rem;
+}
+
+.heading-home {
+  text-align: center;
+  color: white;
+}
+
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.card-badge {
+  width: 200px;
+  height: 200px;
+  margin: var(--margin-m);
+  background-color: white;
+  text-decoration: none;
+  border-radius: var(--border-radius-m);
+}
+
+.card-badge:hover {
+  box-shadow: 0 0 1em var(--glow-color);
+  background-color: #D1D5DB;
+}
+
+.quiz {
+  min-height: 80vh;
+  max-width: 60vw;
+}
+
+.option {
+  border: none;
+  width: 100%;
+  margin: var(--margin-xs);
+  padding: var(--padding-m);
+  border-radius: var(--border-radius-xs);
+  border: 2px solid transparent;
+}
+
+.option:hover {
+  border: 2px solid darkorange;
+}
+
+.option-right {
+  color: white;
+  background-color: #198754;
+}
+
+.option-wrong {
+  color: white;
+  background-color: #dc3545;
+}
+
+.no-hover {
+  pointer-events: none;
+}
+
+.leaderboard {
+  min-width: 210px;
+  height: 210px;
+  border: 1px solid var(--secondary-color);
+  text-align: left;
+  border-radius: var(--border-radius-m);
+}
+
+.underline {
+  text-decoration: underline;
+}
+
+.navbar {
+  position: sticky;
+  top: 0px;
+  display: flex;
+  justify-content: flex-end;
+  padding: var(--padding-m);
+}
+
+.nav-item {
+  text-decoration: none;
+  color: var(--secondary-color);
+  margin: var(--margin-m);
+  font-weight: 700;
+}
+
+.selected {
+  border-bottom: 5px solid var(--secondary-color);
+}
+
+@media screen and (max-width: 768px) {
+  .navbar {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    padding: var(--padding-m);
+  }
+
+  .quiz {
+    min-height: 80vh;
+    max-width: 90vw;
+  }
+
+  .xx-large {
+    font-size: 3rem;
+  }
+}
