@@ -7,7 +7,7 @@ import { changeScoreAsync, getQuizAsync, postScoreAsync } from "../../utils/serv
 
 const Quiz = () => {
     const { id } = useParams();
-    const [timer, setTimer] = useState(60);
+    const [timer, setTimer] = useState(10);
     const { quiz, score } = useAppSelector(state => state.quiz);
     const { status } = useAppSelector(state => state.loader);
     const userScore = useAppSelector(state => state.score);
@@ -31,9 +31,9 @@ const Quiz = () => {
 
     useEffect(() => {
         const id = setTimeout(() => {
-            setTimer((state) => 60)
+            setTimer((state) => 10)
             setQuestionNumber((state) => state + 1);
-        }, 60000)
+        }, 10000)
         return () => {
             clearTimeout(id);
         }

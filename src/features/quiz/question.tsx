@@ -50,7 +50,7 @@ const Question = ({
                 setTimeout(() => {
                   setShowAnswer(false);
                   setQuestionNumber((state) => state + 1);
-                  setTimer((state) => 60);
+                  setTimer((state) => 10);
                 }, 2000);
               }}
             >

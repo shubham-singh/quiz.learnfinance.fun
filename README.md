@@ -11,6 +11,7 @@
 - Leaderboard
 - Right option feedback
 - Timer
+- Light and Dark theme
 - Intuitive UI
 - Responsive to different screen sizes
 
