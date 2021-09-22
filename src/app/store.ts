@@ -5,9 +5,11 @@ import scoreReducer from '../features/score/scoreSlice';
 import leaderboardReducer from "../features/leaderboard/leaderboardSlice";
 import snackbarReducer from '../features/snackbar/snackbarSlice';
 import loaderReducer from '../features/loader/loaderSlice';
+import themeReducer from '../features/theme/themeSlice';
 
 export const store = configureStore({
   reducer: {
+    theme: themeReducer,
     auth: authReducer,
     quiz: quizReducer,
     score: scoreReducer,

@@ -37,7 +37,7 @@ export const getQuizAsync = createAsyncThunk(
         dispatch(idle());
         return quiz.data;
       }
-    } catch (error) {
+    } catch (error: any) {
       return rejectWithValue(error.response.data);
     }
   }
@@ -45,14 +45,14 @@ export const getQuizAsync = createAsyncThunk(
 
 export const getScoreAsync = createAsyncThunk(
   "score/fetchScore",
-  async (undefined, { rejectWithValue }) => {
+  async (_, { rejectWithValue }) => {
     try {
       const response = await axios.get(SCORE);
       if (response.data.success) {
         return response.data;
       }
       throw new Error("Cannot get Scores");
-    } catch (error) {
+    } catch (error: any) {
       console.dir(error);
       return rejectWithValue(error.response.data);
     }
@@ -61,14 +61,14 @@ export const getScoreAsync = createAsyncThunk(
 
 export const getLeaderboardAsync = createAsyncThunk(
   "leaderboard/fetchLeaderboard",
-  async (undefined, { dispatch, rejectWithValue }) => {
+  async (_, { dispatch, rejectWithValue }) => {
     try {
       const response = await axios.get(GET_LEADERBOARD);
       if (response.data.success) {
         return response.data;
       }
       throw new Error("Cannot get Leaderboards");
-    } catch (error) {
+    } catch (error: any) {
       return rejectWithValue(error.response.data);
     }
   }
@@ -87,7 +87,7 @@ export const loginAsync = createAsyncThunk(
         dispatch(showSnackbar("Successfully Logged In"));
         return response.data;
       } else throw new Error("login failed");
-    } catch (error) {
+    } catch (error: any) {
       dispatch(showSnackbar(error.response.data.error));
       return rejectWithValue(error.response.data);
     }
@@ -104,7 +104,7 @@ export const signupAsync = createAsyncThunk(
         dispatch(showSnackbar("Successfully Signed Up"));
         return response.data;
       }
-    } catch (error) {
+    } catch (error: any) {
       dispatch(showSnackbar(error.response.data.error));
       return rejectWithValue(error.response.data);
     }
@@ -122,7 +122,7 @@ export const postScoreAsync = createAsyncThunk(
       if (response.data.success) {
         return response.data;
       }
-    } catch (error) {
+    } catch (error: any) {
       dispatch(showSnackbar(error.response.data.error));
       return rejectWithValue(error.response.data);
     }
@@ -140,7 +140,7 @@ export const changeScoreAsync = createAsyncThunk(
       if (response.data.success) {
         return response.data;
       }
-    } catch (error) {
+    } catch (error: any) {
       dispatch(showSnackbar(error.response.data.error));
       return rejectWithValue(error.response.data);
     }

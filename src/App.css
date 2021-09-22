@@ -20,8 +20,6 @@
   font-family: sans-serif;
   text-align: center;
   min-height: 100vh;
-  /* background-color: #3B82F6; */
-  background-color: black;
   margin: 0;
 }
 
@@ -97,6 +95,10 @@
 
 .underline {
   text-decoration: underline;
+}
+
+.btn-theme {
+  align-self: center;
 }
 
 .navbar {

@@ -16,6 +16,7 @@ import { getScoreAsync } from "./utils/server.requests";
 
 function App() {
   const { loggedIn } = useAppSelector((state) => state.auth);
+  const theme = useAppSelector(state => state.theme.theme);
   const dispatch = useAppDispatch();
   const location = useLocation();
 
@@ -27,7 +28,7 @@ function App() {
   }, [loggedIn, dispatch]);
   
   return (
-    <div className="App">
+    <div className="App" style={{backgroundColor: `${theme === "light" ? "#3B82F6" : "black" }`}}>
       <Snackbar />
       {["/login", "/signup"].includes(location.pathname) ? null : <Navbar />}
       <Routes>
