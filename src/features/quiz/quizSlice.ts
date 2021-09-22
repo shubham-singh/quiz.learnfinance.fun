@@ -36,7 +36,7 @@ export const quizSlice = createSlice({
   name: "quiz",
   initialState,
   reducers: {
-    resetQuiz: (state) => initialState,
+    resetQuiz: () => initialState,
     computeScore: (state, action) => {
       if (state.score + action.payload >= 0) {
         state.score += action.payload;
@@ -51,17 +51,6 @@ export const quizSlice = createSlice({
         state.quiz = action.payload.quiz;
         state.score = 0;
       })
-      // .addCase(getQuizAsync.pending, (state) => {
-      //   state.status = "loading";
-      // })
-      // .addCase(getQuizAsync.fulfilled, (state, action) => {
-      //   state.status = "idle";
-      //   state.quiz = action.payload.quiz;
-      //   state.score = 0;
-      // })
-      // .addCase(getQuizAsync.rejected, (state) => {
-      //   state.status = "failed";
-      // });
   },
 });
 

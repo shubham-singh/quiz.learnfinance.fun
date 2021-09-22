@@ -4,6 +4,7 @@ import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import Question from "./question";
 import Loader from "../loader/loader";
 import { changeScoreAsync, getQuizAsync, postScoreAsync } from "../../utils/server.requests";
+import { resetQuiz } from "./quizSlice";
 
 const Quiz = () => {
     const { id } = useParams();
@@ -18,6 +19,9 @@ const Quiz = () => {
 
     useEffect(() => {
         dispatch(getQuizAsync(id));
+        return () => {
+            dispatch(resetQuiz());
+        }
     }, [dispatch, id])
 
     useEffect(() => {
@@ -55,6 +59,7 @@ const Quiz = () => {
             {status === 'failed' && <p>something went wrong</p>}
             {(status === 'idle' && JSON.stringify(quiz) !== "{}") && 
             <div className="flex-c justify-e quiz">
+                <h2 className="text-color">Score: {score}</h2>
                 <h1 className="xx-large text-color">{quiz.quizName}</h1>
                 <h1 className="text-color">{timer}</h1>
                 <Question question={quiz?.questions[questionNumber]} questionNumber={questionNumber} setQuestionNumber={setQuestionNumber} setTimer={setTimer} />

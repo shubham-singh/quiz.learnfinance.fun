@@ -14,6 +14,7 @@ const Question = ({
   setTimer: React.Dispatch<React.SetStateAction<number>>;
 }) => {
   const [showAnswer, setShowAnswer] = useState(false);
+  const [userAnswer, setUserAnswer] = useState<string>("");
   const { quiz: { points, negativePoints } } = useAppSelector((state) => state.quiz);
 
   const dispatch = useAppDispatch();
@@ -40,11 +41,12 @@ const Question = ({
                 showAnswer
                   ? option.isCorrect
                     ? "option option-right no-hover"
-                    : "option"
+                    : userAnswer === option.value ? "option option-wrong no-hover" : "option"
                   : "option pointer"
               }
               key={option._id}
-              onClick={(e) => {
+              onClick={(e: any) => {
+                setUserAnswer(e.target.innerText)
                 calculateScore(option.isCorrect);
                 setShowAnswer(true);
                 setTimeout(() => {
