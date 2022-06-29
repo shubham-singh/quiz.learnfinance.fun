@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import {
+  BASE,
   CHANGE_SCORE,
   GET_LEADERBOARD,
   GET_QUIZ,
@@ -12,6 +13,14 @@ import {
 import { showSnackbar } from "../features/snackbar/snackbarSlice";
 import { AppDispatch } from "../app/store";
 import { idle, loading } from "../features/loader/loaderSlice";
+
+export const pingServer = async () => {
+  try {
+    await axios.get(BASE);
+  } catch (error: Error | any) {
+    console.error("Failed to start server");
+  }
+} 
 
 export const getAllQuizAsync = async (
   setQuizes: React.Dispatch<any>,

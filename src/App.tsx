@@ -12,13 +12,17 @@ import Leaderboard from "./features/leaderboard/leaderboard";
 import Navbar from "./features/navigation/navbar";
 import { useAppDispatch, useAppSelector } from "./app/hooks";
 import { setupAuthHeaderForServiceCalls } from "./utils/function";
-import { getScoreAsync } from "./utils/server.requests";
+import { getScoreAsync, pingServer } from "./utils/server.requests";
 
 function App() {
   const { loggedIn } = useAppSelector((state) => state.auth);
   const theme = useAppSelector(state => state.theme.theme);
   const dispatch = useAppDispatch();
   const location = useLocation();
+
+  useEffect(() => {
+    pingServer();
+  }, [])
 
   useEffect(() => {
     setupAuthHeaderForServiceCalls();
